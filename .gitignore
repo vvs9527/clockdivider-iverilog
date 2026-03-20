@@ -1,0 +1,5 @@
+out/
+*.vcd
+*.fsdb
+*.out
+*.vvp
