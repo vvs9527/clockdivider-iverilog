@@ -163,7 +163,9 @@ assign hold_raw_low_w  = bypass_active &&
 assign frac1_sum       = {1'b0, frac1_acc_q} + {1'b0, div_fra_cfg};
 assign oclk_enable     = cken_cfg && !cfg_div_zero &&
                          (!cfg_frac1x || frac1_cycle_en_q);
-assign oclk           = (rstn && cken_cfg) ? oclk_gate_w : 1'b0;
+// Let the internal ICG/mux tree control the output clock path directly.
+// Avoid combinationally gating oclk with the asynchronous reset signal.
+assign oclk           = oclk_gate_w;
 
 always @(posedge clk or negedge rstn) begin
     if (!rstn) begin
